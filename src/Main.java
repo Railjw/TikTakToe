@@ -49,7 +49,7 @@ public class Main {
         {board[row][col] = 'X';}
         else {
             while (board[row][col] != ' '){
-                System.out.print("\nВыбранная позиция недоступна, выберите иную (1-9): ");
+                System.out.print("Выбранная позиция недоступна, выберите иную (1-9): ");
                 pos = ValidPosPlayer();
                 row = (pos-1)/3;
                 col = (pos-1)%3;
@@ -67,7 +67,7 @@ public class Main {
         if (board[row][col] == ' ')
         {board[row][col] = 'O';}
         else {
-            while (board[row][col] == ' ') {
+            while (board[row][col] != ' ') {
                 posComp = new Random().nextInt(9);
                 row = posComp / 3;
                 col = posComp % 3;
