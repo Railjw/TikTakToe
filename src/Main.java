@@ -76,6 +76,7 @@ public class Main {
                 row = New / 3;
                 col = New % 3;
                 if (board[row][col] == ' ') {
+                    System.out.print("Она занята, поэтому выбрал: " + New);
                     board[row][col] = 'O';
                     break;
                 }
@@ -95,7 +96,27 @@ public class Main {
         }
     }
 
-    //public static void
+    public static void Checking() {
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board.length; j++){
+                if (((board[i][0] == board[i][1]) & (board[i][1] == board[i][2])) & board[i][0] != ' ') {
+                    System.out.println("Поздравляем победил: " + board[i][0] + "\nИгра завершена!");
+                    //in.close();
+                    System.exit(0);
+                }
+                else if (((board[0][i] == board[1][i]) & (board[1][i] == board[2][i])) & board[0][i] != ' ') {
+                    System.out.println("Поздравляем победил: " + board[0][i] + "\nИгра завершена!");
+                    //in.close();
+                    System.exit(0);
+                }
+                else if (((board[0][0] == board[1][1]) & (board[1][1] == board[2][2])) | ((board[0][2] == board[1][1]) & (board[1][1] == board[2][0]))) {
+                    System.out.println("Поздравляем победил: " + board[0][i] + "\nИгра завершена!");
+                    //in.close();
+                    System.exit(0);
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -105,11 +126,24 @@ public class Main {
         /* Необходимо сделать инициализацию победы или ничьи
         *  */
         while (true){
-            {
-                PlayerTurn();
-                CompTurn();
-
-            }
+                for (int step = 0; step < 5; step++){
+                    if (step < 2){
+                        PlayerTurn();
+                        CompTurn();
+                    }
+                    else {
+                        PlayerTurn();
+                        Checking();
+                        if (step == 4) {
+                            System.out.println("Ничья!\nИгра завершена!");
+                            System.exit(0);
+                        }
+                        CompTurn();
+                        Checking();
+                    }
+                }
+                System.out.println("Игра завершена!");
+                break;
         }
     }
 }
