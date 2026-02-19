@@ -1,6 +1,4 @@
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -28,8 +26,9 @@ public class Main {
         while (true){
             try {
                 pos = in.nextInt();
-                if (pos > 0 & pos < 10){return pos;}
-                else {
+                if (pos > 0 & pos < 10) {
+                    return pos;
+                } else {
                     System.out.print("Введенное значение имеет некорректное значение!\nВыберите позицию (1-9): ");
                     in.nextLine();
                 }
@@ -53,24 +52,33 @@ public class Main {
                 pos = ValidPosPlayer();
                 row = (pos-1)/3;
                 col = (pos-1)%3;
+                if (board[row][col] == ' ')
+                {
+                    board[row][col] = 'X';
+                    break;
+                }
             }
         }
-        clearScreen();
         printBoard();
     }
 
     public static void CompTurn(){
         posComp = new Random().nextInt(9);
-        System.out.println("Компьютер выбрал позицию: " + posComp);
+        int set = posComp + 1;
+        System.out.println("Компьютер выбрал позицию: " + set);
         int row = posComp/3;
         int col = posComp%3;
         if (board[row][col] == ' ')
         {board[row][col] = 'O';}
         else {
             while (board[row][col] != ' ') {
-                posComp = new Random().nextInt(9);
-                row = posComp / 3;
-                col = posComp % 3;
+                int New = new Random().nextInt(9);
+                row = New / 3;
+                col = New % 3;
+                if (board[row][col] == ' ') {
+                    board[row][col] = 'O';
+                    break;
+                }
             }
         }
         clearScreen();
@@ -79,13 +87,15 @@ public class Main {
 
     public static void printBoard(){
         System.out.println("___________");
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                System.out.print(board[i][j] + " | ");}
+        for (char[] row : board) {
+            for (char cell: row) {
+                System.out.print(cell + " | ");}
             System.out.println();
             System.out.println("___________");
         }
     }
+
+    public static void
 
     public static void main(String[] args) {
 
@@ -98,6 +108,8 @@ public class Main {
             {
                 PlayerTurn();
                 CompTurn();
+
+                }
             }
         }
     }
